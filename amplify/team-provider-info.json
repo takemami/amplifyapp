@@ -14,6 +14,12 @@
     "categories": {
       "auth": {
         "amplifyappc4de4547": {}
+      },
+      "function": {
+        "CognitoGet": {
+          "deploymentBucketName": "amplify-amplifyapp-dev-122425-deployment",
+          "s3Key": "amplify-builds/CognitoGet-376c6658725a6941686c-build.zip"
+        }
       }
     }
   }
