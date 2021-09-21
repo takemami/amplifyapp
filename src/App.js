@@ -3,8 +3,7 @@ import './App.css';
 //import { API} from 'aws-amplify';
 import { Link, useParams } from 'react-router-dom';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
-// import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
-import { withAuthenticator } from '@aws-amplify/ui-react';
+import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
 //import { listNotes } from './graphql/queries';
 // import { createNote as createNoteMutation, deleteNote as deleteNoteMutation } from './graphql/mutations';
 //import { createNote as createNoteMutation } from './graphql/mutations';
@@ -35,6 +34,7 @@ import NoSsr from "@material-ui/core/NoSsr";
 import GoogleFontLoader from "react-google-font-loader";
 import { Info, InfoSubtitle, InfoTitle } from "@mui-treasury/components/info";
 import { useBeatsInfoStyles } from "@mui-treasury/styles/info/beats";
+import { AuthState, onAuthUIStateChange } from '@aws-amplify/ui-components';
 
 // import { CreateLiquor } from './CreateLiquor';
 
@@ -364,6 +364,7 @@ function MenuAppBar() {
                   <Link to="/UserInfo" className="linkBlack">会員情報</Link>
                   {/* 会員情報 */}
                 </MenuItem>
+                <AmplifySignOut />
               </Menu>
             </div>
           }
@@ -424,9 +425,20 @@ const BeatsInfoStyle = (props) => {
 };
 
 
+
 //画面のレイアウト
 //元々の関数
 function App() {
+  const [authState, setAuthState] = React.useState();
+    const [user, setUser] = React.useState();
+
+    React.useEffect(() => {
+        return onAuthUIStateChange((nextAuthState, authData) => {
+            setAuthState(nextAuthState);
+            setUser(authData)
+        });
+    }, []);
+
   //テキスト保存
   
   //const [notes, setNotes] = useState([]);
@@ -752,7 +764,7 @@ function App() {
           <Grid container spacing={2}>
             <Grid item xs={6}>
               <div className="Cock-history">
-                <p>最近作ったカクテル</p>
+                <p></p>
                 <FixedSizeList
                   height={500}
                   width={Autocomplete}
